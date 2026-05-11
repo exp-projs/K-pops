@@ -1,12 +1,31 @@
-import { Star, Plus, Share2, CheckCircle, Play, Calendar, Clock, Film, ChevronRight } from 'lucide-react';
+import { Star, Plus, Share2, CheckCircle, Play, Calendar, Clock, Film, ChevronRight, ExternalLink } from 'lucide-react';
 import { tvmaze } from '@/lib/api/tvmaze';
 import { formatDate, formatRuntime } from '@/lib/utils';
+import { getStreamingLinks } from '@/lib/streaming-links';
 import DramaCard from '@/components/ui/DramaCard';
-import DramaDetailTabs from './DramaDetailTabs'; // We'll create this
+import DramaDetailTabs from './DramaDetailTabs';
 import styles from './drama-detail.module.css';
 
 interface DramaPageProps {
   params: Promise<{ slug: string }>;
+}
+
+export async function generateMetadata({ params }: DramaPageProps) {
+  const { slug } = await params;
+  try {
+    const drama = await tvmaze.getDramaBySlug(slug);
+    return {
+      title: `${drama.title} — K-Drama`,
+      description: drama.overview?.slice(0, 160) || `Watch ${drama.title} on HALLYU.WORLD`,
+      openGraph: {
+        title: `${drama.title} | HALLYU.WORLD`,
+        description: drama.overview?.slice(0, 160),
+        images: drama.posterPath ? [{ url: drama.posterPath }] : [],
+      },
+    };
+  } catch {
+    return { title: 'Drama Not Found' };
+  }
 }
 
 export default async function DramaDetailPage({ params }: DramaPageProps) {
@@ -15,6 +34,7 @@ export default async function DramaDetailPage({ params }: DramaPageProps) {
   try {
     const dramaData = await tvmaze.getDramaBySlug(slug);
     const related = (await tvmaze.getTrendingDramas()).filter(d => d.id !== dramaData.id).slice(0, 6);
+    const streamingLinks = getStreamingLinks(dramaData.title, dramaData.networks?.[0]?.name);
 
     return (
       <div className={styles.page}>
@@ -61,9 +81,25 @@ export default async function DramaDetailPage({ params }: DramaPageProps) {
                 <button className={styles.iconAction}><CheckCircle size={18} /><span>Seen It</span></button>
               </div>
 
+              {/* Where to Watch — Affiliate Links */}
               <div className={styles.streamOn}>
-                <span className={styles.streamLabel}>Source:</span>
-                <span className={styles.streamBadge}>{dramaData.networks?.[0]?.name || 'TVmaze'}</span>
+                <span className={styles.streamLabel}>어디서 볼까? Where to Watch:</span>
+                <div className={styles.streamLinks}>
+                  {streamingLinks.map(link => (
+                    <a
+                      key={link.platform}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.streamBadge}
+                      style={{ borderColor: link.color }}
+                    >
+                      <span>{link.icon}</span>
+                      {link.platform}
+                      <ExternalLink size={10} />
+                    </a>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

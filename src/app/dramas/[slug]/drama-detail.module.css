@@ -195,23 +195,41 @@
 
 .streamOn {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: var(--space-2);
 }
 
 .streamLabel {
   font-size: var(--text-body-sm);
   color: var(--text-muted);
+  font-family: var(--font-accent);
+}
+
+.streamLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
 }
 
 .streamBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-size: var(--text-micro);
   font-weight: 600;
   color: var(--text-primary);
   background: var(--surface-elevated);
-  padding: 4px 12px;
-  border-radius: var(--radius-sm);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
   border: 1px solid var(--border-subtle);
+  text-decoration: none;
+  transition: background var(--duration-fast), border-color var(--duration-fast), transform var(--duration-fast);
+  cursor: pointer;
+}
+
+.streamBadge:hover {
+  background: var(--surface-card);
+  transform: translateY(-1px);
 }
 
 /* Tabs */

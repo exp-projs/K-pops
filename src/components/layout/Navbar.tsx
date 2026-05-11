@@ -2,15 +2,15 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Search, Bell, Tv, Music, Newspaper, Trophy, Users, BookmarkPlus } from 'lucide-react';
+import { Search, Bell, Tv, Music, Newspaper, Trophy, Users, BookmarkPlus, Sparkles } from 'lucide-react';
 import SearchModal from './SearchModal';
 import styles from './Navbar.module.css';
 
 const navLinks = [
   { href: '/dramas', label: 'Dramas', icon: Tv },
   { href: '/kpop', label: 'K-Pop', icon: Music },
+  { href: '/recommend', label: 'AI 추천', icon: Sparkles },
   { href: '/news', label: 'News', icon: Newspaper },
-  { href: '/rankings', label: 'Rankings', icon: Trophy },
   { href: '/community', label: 'Community', icon: Users },
   { href: '/watchlist', label: 'My List', icon: BookmarkPlus },
 ];

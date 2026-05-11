@@ -14,7 +14,7 @@ export default async function BTSPage() {
 
   const btsStats = {
     ...btsArtist,
-    genre: artistInfo?.genre || btsArtist.genre,
+    artistType: artistInfo?.genre || 'K-Pop',
   };
 
   return (

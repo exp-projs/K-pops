@@ -21,6 +21,7 @@ export default function Footer() {
             <Link href="/kpop" className={styles.colLink}>K-Pop</Link>
             <Link href="/bts" className={styles.colLink}>BTS Universe</Link>
             <Link href="/rankings" className={styles.colLink}>Rankings</Link>
+            <Link href="/recommend" className={styles.colLink}>AI 추천</Link>
           </div>
           <div className={styles.col}>
             <h4 className={styles.colTitle}>Community</h4>
@@ -31,7 +32,7 @@ export default function Footer() {
           <div className={styles.col}>
             <h4 className={styles.colTitle}>Account</h4>
             <Link href="/login" className={styles.colLink}>Sign In</Link>
-            <Link href="/register" className={styles.colLink}>Create Account</Link>
+            <Link href="/login" className={styles.colLink}>Create Account</Link>
             <Link href="/watchlist" className={styles.colLink}>My List</Link>
           </div>
         </div>
@@ -39,7 +40,7 @@ export default function Footer() {
 
       <div className={styles.bottom}>
         <p className={styles.copy}>© {new Date().getFullYear()} HALLYU.WORLD. Made with 💜 for fans, by fans.</p>
-        <p className={styles.disclaimer}>Data provided by TMDB & Spotify. Not affiliated with any drama/music distributor.</p>
+        <p className={styles.disclaimer}>Data by TVmaze, iTunes Search API & Soompi. AI by Google Gemini.</p>
       </div>
     </footer>
   );

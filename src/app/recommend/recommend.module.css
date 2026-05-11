@@ -1,0 +1,320 @@
+.page {
+  min-height: 100vh;
+  background: var(--primary-dark);
+  display: flex;
+  justify-content: center;
+  padding: var(--space-6);
+}
+
+.container {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - var(--nav-height) - var(--space-12));
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-6) 0;
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: var(--space-4);
+}
+
+.headerIcon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-lg);
+  background: var(--gradient-rose-violet);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.title {
+  font-family: var(--font-accent);
+  font-size: var(--text-h2);
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.titleSub {
+  font-family: var(--font-heading);
+  font-size: var(--text-body-sm);
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.subtitle {
+  font-size: var(--text-body-sm);
+  color: var(--text-muted);
+}
+
+.resetBtn {
+  margin-left: auto;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.resetBtn:hover {
+  border-color: var(--accent-rose);
+  color: var(--accent-rose);
+}
+
+/* Chat Area */
+.chatArea {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-4) 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-subtle) transparent;
+}
+
+/* Welcome */
+.welcome {
+  text-align: center;
+  padding: var(--space-8) 0;
+}
+
+.welcomeText {
+  font-family: var(--font-accent);
+  font-size: var(--text-h3);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-8);
+}
+
+.moodGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+}
+
+.moodCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-5) var(--space-3);
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-default);
+  color: var(--text-primary);
+}
+
+.moodCard:hover {
+  border-color: var(--accent-rose);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-glow-rose);
+}
+
+.moodEmoji {
+  font-size: 32px;
+}
+
+.moodLabel {
+  font-family: var(--font-accent);
+  font-size: var(--text-body);
+  font-weight: 600;
+}
+
+.moodSub {
+  font-size: var(--text-micro);
+  color: var(--text-muted);
+}
+
+/* Messages */
+.message {
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+  align-items: flex-start;
+}
+
+.messageUser {
+  flex-direction: row-reverse;
+}
+
+.messageAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: var(--surface-elevated);
+  color: var(--text-muted);
+}
+
+.messageBot .messageAvatar {
+  background: var(--gradient-rose-violet);
+  color: #fff;
+}
+
+.messageBubble {
+  max-width: 85%;
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  font-size: var(--text-body-sm);
+  line-height: 1.7;
+}
+
+.messageUser .messageBubble {
+  background: var(--accent-rose-dim);
+  border: 1px solid rgba(255, 60, 110, 0.2);
+  color: var(--text-primary);
+  border-bottom-right-radius: var(--radius-sm);
+}
+
+.messageBot .messageBubble {
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  border-bottom-left-radius: var(--radius-sm);
+}
+
+.markdownContent strong {
+  color: var(--accent-rose-light);
+  font-weight: 600;
+}
+
+.markdownContent em {
+  color: var(--accent-violet-light);
+}
+
+.markdownContent ul {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-2) 0;
+}
+
+.markdownContent li {
+  padding: 2px 0;
+}
+
+.markdownContent li::before {
+  content: '→ ';
+  color: var(--accent-rose);
+}
+
+.typingIndicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Input Bar */
+.inputBar {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-4) 0;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.input {
+  flex: 1;
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  padding: var(--space-3) var(--space-5);
+  font-family: var(--font-body);
+  font-size: var(--text-body-sm);
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color var(--duration-fast);
+}
+
+.input::placeholder {
+  color: var(--text-muted);
+  font-family: var(--font-accent);
+}
+
+.input:focus {
+  border-color: var(--accent-rose);
+}
+
+.sendBtn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--gradient-rose-violet);
+  border: none;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity var(--duration-fast), transform var(--duration-fast);
+  flex-shrink: 0;
+}
+
+.sendBtn:hover:not(:disabled) {
+  transform: scale(1.05);
+}
+
+.sendBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .page {
+    padding: var(--space-3);
+  }
+
+  .container {
+    height: calc(100vh - var(--nav-height) - var(--mobile-nav-height) - var(--space-6));
+  }
+
+  .moodGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-2);
+  }
+
+  .moodCard {
+    padding: var(--space-3);
+  }
+
+  .moodEmoji {
+    font-size: 24px;
+  }
+
+  .welcomeText {
+    font-size: var(--text-body);
+  }
+
+  .messageBubble {
+    max-width: 90%;
+  }
+}
