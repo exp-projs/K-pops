@@ -1,0 +1,229 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 15vh;
+  animation: fadeIn var(--duration-fast) ease-out;
+}
+
+.modal {
+  width: 100%;
+  max-width: 600px;
+  background: var(--surface-card);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: slideDown var(--duration-fast) ease-out;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--surface-base);
+}
+
+.searchIcon {
+  color: var(--text-muted);
+  margin-right: var(--space-3);
+}
+
+.input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-base);
+  font-size: var(--text-lg);
+  outline: none;
+}
+
+.input::placeholder {
+  color: var(--text-muted);
+}
+
+.closeBtn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: var(--space-1);
+  border-radius: var(--radius-sm);
+  transition: all var(--duration-fast);
+}
+
+.closeBtn:hover {
+  background: var(--surface-hover);
+  color: var(--text-base);
+}
+
+.content {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.centerState {
+  padding: var(--space-12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+  color: var(--accent-primary);
+}
+
+.initialState {
+  padding: var(--space-12);
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.shortcutHints {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-6);
+  margin-top: var(--space-6);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+.shortcutHints kbd {
+  background: var(--surface-hover);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--border-subtle);
+  font-family: monospace;
+}
+
+.results {
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.resultsTitle {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0 var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.resultItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background var(--duration-fast);
+}
+
+.resultItem:hover {
+  background: var(--surface-hover);
+}
+
+.resultImg {
+  width: 40px;
+  height: 56px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+}
+
+.resultPlaceholder {
+  width: 40px;
+  height: 56px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+}
+
+.resultInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.resultTitle {
+  color: var(--text-base);
+  font-weight: var(--weight-medium);
+}
+
+.resultMeta {
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+}
+
+.viewAllBtn {
+  margin-top: var(--space-2);
+  padding: var(--space-3);
+  background: transparent;
+  border: none;
+  color: var(--accent-primary);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+  border-radius: var(--radius-md);
+}
+
+.viewAllBtn:hover {
+  background: var(--surface-hover);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+  .overlay {
+    padding-top: 0;
+  }
+  
+  .modal {
+    height: 100vh;
+    border-radius: 0;
+    max-height: 100vh;
+  }
+
+  .content {
+    max-height: calc(100vh - 76px); /* Subtract header height */
+  }
+
+  .shortcutHints {
+    display: none;
+  }
+}

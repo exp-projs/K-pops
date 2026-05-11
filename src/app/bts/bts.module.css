@@ -1,0 +1,350 @@
+.page { min-height: 100vh; }
+
+/* Hero */
+.hero {
+  position: relative;
+  min-height: 450px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: calc(var(--nav-height) * -1);
+  padding-top: var(--nav-height);
+  background: linear-gradient(135deg, #0a0a1a, #1a0a2e, #0f0a1f);
+  overflow: hidden;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(139,92,246,0.1) 0%, transparent 70%);
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  padding: var(--space-12) var(--content-padding);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-heading);
+  font-size: var(--text-micro);
+  font-weight: 600;
+  color: var(--accent-violet);
+  background: var(--accent-violet-dim);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-5);
+  letter-spacing: 0.08em;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 120px;
+  letter-spacing: 0.05em;
+  background: linear-gradient(90deg, #8B5CF6, #A78BFA, #FFB7C5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1;
+}
+
+.koreanTitle {
+  font-family: var(--font-accent);
+  font-size: var(--text-h2);
+  color: var(--text-secondary);
+  margin-top: var(--space-2);
+}
+
+.subtitle {
+  font-size: var(--text-body);
+  color: var(--text-muted);
+  margin-top: var(--space-2);
+}
+
+.heroStats {
+  display: flex;
+  gap: var(--space-10);
+  justify-content: center;
+  margin-top: var(--space-8);
+}
+
+.heroStat { text-align: center; }
+
+.heroStatValue {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--text-h2);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.heroStatLabel {
+  font-size: var(--text-micro);
+  color: var(--text-muted);
+}
+
+/* Section */
+.section {
+  padding: var(--space-12) 0;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--content-padding);
+}
+
+.sectionTitle {
+  font-family: var(--font-heading);
+  font-size: var(--text-h2);
+  font-weight: 700;
+}
+
+.sectionSub {
+  font-size: var(--text-body-sm);
+  color: var(--text-secondary);
+  margin-top: var(--space-1);
+  margin-bottom: var(--space-6);
+}
+
+/* Member Grid */
+.memberGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--space-3);
+}
+
+.memberCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--space-5) var(--space-3);
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: border-color var(--duration-normal), transform var(--duration-normal), box-shadow var(--duration-normal);
+  overflow: hidden;
+}
+
+.memberCard:hover {
+  border-color: var(--member-accent, var(--border-medium));
+  transform: translateY(-2px);
+}
+
+.memberActive {
+  border-color: var(--member-accent) !important;
+  box-shadow: 0 0 20px color-mix(in srgb, var(--member-accent) 30%, transparent);
+}
+
+.memberColorStrip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--member-accent);
+}
+
+.memberAvatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--surface-elevated);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: var(--text-h2);
+  font-weight: 700;
+  color: var(--member-accent);
+  margin-bottom: var(--space-3);
+  border: 2px solid var(--member-accent);
+}
+
+.memberInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.memberName {
+  font-family: var(--font-heading);
+  font-size: var(--text-body);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.memberKorean {
+  font-family: var(--font-accent);
+  font-size: var(--text-body-sm);
+  color: var(--text-muted);
+}
+
+.memberRole {
+  font-size: var(--text-micro);
+  color: var(--text-muted);
+  margin-top: var(--space-1);
+}
+
+.militaryBadge {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  margin-top: var(--space-3);
+}
+
+.mil_completed {
+  color: var(--success);
+  background: rgba(16, 185, 129, 0.12);
+}
+
+.mil_active_duty {
+  color: var(--accent-gold);
+  background: var(--accent-gold-dim);
+}
+
+/* Member Detail */
+.memberDetail {
+  margin-top: var(--space-6);
+  padding: var(--space-6);
+  background: var(--surface-card);
+  border: 1px solid;
+  border-radius: var(--radius-lg);
+}
+
+.memberDetailName {
+  font-family: var(--font-heading);
+  font-size: var(--text-h2);
+  font-weight: 700;
+}
+
+.memberDetailRole {
+  color: var(--text-secondary);
+  margin-top: var(--space-1);
+}
+
+.memberDetailMilitary {
+  color: var(--success);
+  font-size: var(--text-body-sm);
+  margin-top: var(--space-3);
+}
+
+/* Timeline */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.timelineItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.timelineDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.timelineContent {
+  min-width: 150px;
+}
+
+.timelineName {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  display: block;
+}
+
+.timelineStatus {
+  font-size: var(--text-micro);
+  color: var(--text-muted);
+}
+
+.timelineBar {
+  flex: 1;
+  height: 8px;
+  background: var(--surface-elevated);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.timelineProgress {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 1s var(--ease-default);
+}
+
+/* Discography */
+.discography {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-3);
+}
+
+.albumCard {
+  display: flex;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  transition: border-color var(--duration-fast), background var(--duration-fast);
+  cursor: pointer;
+}
+
+.albumCard:hover {
+  border-color: var(--accent-violet);
+  background: var(--surface-elevated);
+}
+
+.albumArtWrap {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.albumArtImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.albumArtOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--duration-fast);
+}
+
+.albumCard:hover .albumArtOverlay {
+  opacity: 1;
+}
+
+.albumInfo { display: flex; flex-direction: column; justify-content: center; }
+.albumTitle { font-family: var(--font-heading); font-weight: 600; font-size: var(--text-body-sm); }
+.albumMeta { font-size: var(--text-micro); color: var(--text-muted); margin-top: 2px; }
+
+@media (max-width: 768px) {
+  .title { font-size: 72px; }
+  .heroStats { flex-wrap: wrap; gap: var(--space-6); }
+  .memberGrid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+}

@@ -1,0 +1,113 @@
+.footer {
+  background: var(--surface-dark);
+  border-top: 1px solid var(--border-subtle);
+  padding: var(--space-16) 0 var(--space-8);
+  margin-top: var(--space-20);
+}
+
+.inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--content-padding);
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-12);
+  flex-wrap: wrap;
+}
+
+.brand {
+  max-width: 320px;
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: 24px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-flex;
+  margin-bottom: var(--space-3);
+}
+
+.logoHighlight {
+  background: var(--gradient-rose-violet);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.logoDot {
+  color: var(--accent-rose);
+  margin: 0 1px;
+}
+
+.tagline {
+  font-size: var(--text-body-sm);
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.columns {
+  display: flex;
+  gap: var(--space-12);
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.colTitle {
+  font-family: var(--font-heading);
+  font-size: var(--text-body-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.colLink {
+  font-size: var(--text-body-sm);
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color var(--duration-fast);
+}
+
+.colLink:hover {
+  color: var(--text-secondary);
+}
+
+.bottom {
+  max-width: var(--max-width);
+  margin: var(--space-10) auto 0;
+  padding: var(--space-6) var(--content-padding) 0;
+  border-top: 1px solid var(--border-subtle);
+  text-align: center;
+}
+
+.copy {
+  font-size: var(--text-micro);
+  color: var(--text-muted);
+  margin-bottom: var(--space-1);
+}
+
+.disclaimer {
+  font-size: 11px;
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+@media (max-width: 768px) {
+  .inner {
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .columns {
+    gap: var(--space-8);
+  }
+
+  .footer {
+    padding-bottom: calc(var(--mobile-nav-height) + var(--space-8));
+  }
+}
