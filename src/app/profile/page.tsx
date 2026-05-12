@@ -3,7 +3,7 @@ import { createClient } from '@/utils/supabase/server';
 import styles from './profile.module.css';
 
 export default async function ProfilePage() {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const {
     data: { user },

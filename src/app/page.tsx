@@ -3,15 +3,15 @@ import ContentRow from '@/components/home/ContentRow';
 import NewsSection from '@/components/home/NewsSection';
 import RankingsPreview from '@/components/home/RankingsPreview';
 import StatsStrip from '@/components/home/StatsStrip';
-import { tvmaze } from '@/lib/api/tvmaze';
+import { mdlApi } from '@/lib/api/mdl';
 import { kpopApi } from '@/lib/api/kpop';
 import { newsApi } from '@/lib/api/news';
 
 export default async function HomePage() {
   // Fetch data in parallel for performance
   const [trendingDramas, currentlyAiring, news, topTracks, featuredArtists] = await Promise.all([
-    tvmaze.getTrendingDramas(),
-    tvmaze.getCurrentlyAiring(),
+    mdlApi.getTrendingDramas(),
+    mdlApi.getCurrentlyAiring(),
     newsApi.getLatestNews(6),
     kpopApi.getTrendingTracks(5),
     kpopApi.getFeaturedArtists()

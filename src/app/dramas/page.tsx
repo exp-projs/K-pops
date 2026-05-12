@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Search, SlidersHorizontal, Grid3X3, List, X, ChevronDown } from 'lucide-react';
 import DramaCard from '@/components/ui/DramaCard';
-import { tvmaze } from '@/lib/api/tvmaze';
+import { mdlApi } from '@/lib/api/mdl';
 import type { Drama } from '@/types/drama';
 import styles from './dramas.module.css';
 
@@ -32,13 +32,13 @@ export default function DramasBrowsePage() {
       try {
         let results: Drama[] = [];
         if (searchQuery) {
-          results = await tvmaze.searchDramas(searchQuery);
+          results = await mdlApi.searchDramas(searchQuery);
         } else {
-          results = await tvmaze.getTrendingDramas();
+          results = await mdlApi.getTrendingDramas();
         }
 
         // Apply local filtering for genre/network/year if needed
-        // (TVmaze API doesn't support complex server-side filtering for free search)
+        // (MDL API live scrapers don't support complex combined server-side filtering for search)
         let filtered = results;
         if (selectedGenre !== 'All') {
           filtered = filtered.filter(d => d.genres.includes(selectedGenre));
@@ -75,7 +75,7 @@ export default function DramasBrowsePage() {
         <div className={styles.pageHeader}>
           <div>
             <h1 className={styles.pageTitle}>K-Dramas</h1>
-            <p className={styles.pageSubtitle}>Discover your next obsession from the TVmaze universe</p>
+            <p className={styles.pageSubtitle}>Discover your next obsession from the MyDramaList universe</p>
           </div>
         </div>
 

@@ -40,7 +40,7 @@ export default function Footer() {
 
       <div className={styles.bottom}>
         <p className={styles.copy}>© {new Date().getFullYear()} HALLYU.WORLD. Made with 💜 for fans, by fans.</p>
-        <p className={styles.disclaimer}>Data by TVmaze, iTunes Search API & Soompi. AI by Google Gemini.</p>
+        <p className={styles.disclaimer}>Data by MyDramaList (MDL), iTunes Search API &amp; Soompi. AI by Google Gemini.</p>
       </div>
     </footer>
   );

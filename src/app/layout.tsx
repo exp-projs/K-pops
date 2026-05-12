@@ -68,7 +68,7 @@ export default function RootLayout({
   const fontVars = `${bebasNeue.variable} ${syne.variable} ${plusJakarta.variable} ${notoSerifKR.variable} ${jetbrainsMono.variable}`;
 
   return (
-    <html lang="en" className={fontVars}>
+    <html lang="en" className={fontVars} data-scroll-behavior="smooth">
       <body>
         <Navbar />
         <main style={{ minHeight: '100vh', paddingTop: 'var(--nav-height)' }}>

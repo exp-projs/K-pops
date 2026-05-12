@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Search, X, Loader2, Tv } from 'lucide-react';
-import { tvmaze } from '@/lib/api/tvmaze';
+import { mdlApi } from '@/lib/api/mdl';
 import type { Drama } from '@/types/drama';
 import styles from './SearchModal.module.css';
 
@@ -39,7 +39,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
       }
       setIsLoading(true);
       try {
-        const data = await tvmaze.searchDramas(query);
+        const data = await mdlApi.searchDramas(query);
         setResults(data.slice(0, 5)); // Show top 5
       } catch (error) {
         console.error('Search failed', error);

@@ -1,8 +1,9 @@
 import { Star, Plus, Share2, CheckCircle, Play, Calendar, Clock, Film, ChevronRight, ExternalLink } from 'lucide-react';
-import { tvmaze } from '@/lib/api/tvmaze';
+import { mdlApi } from '@/lib/api/mdl';
 import { formatDate, formatRuntime } from '@/lib/utils';
 import { getStreamingLinks } from '@/lib/streaming-links';
 import DramaCard from '@/components/ui/DramaCard';
+import type { Drama } from '@/types/drama';
 import DramaDetailTabs from './DramaDetailTabs';
 import styles from './drama-detail.module.css';
 
@@ -13,7 +14,7 @@ interface DramaPageProps {
 export async function generateMetadata({ params }: DramaPageProps) {
   const { slug } = await params;
   try {
-    const drama = await tvmaze.getDramaBySlug(slug);
+    const drama = await mdlApi.getDramaBySlug(slug);
     return {
       title: `${drama.title} — K-Drama`,
       description: drama.overview?.slice(0, 160) || `Watch ${drama.title} on HALLYU.WORLD`,
@@ -32,8 +33,27 @@ export default async function DramaDetailPage({ params }: DramaPageProps) {
   const { slug } = await params;
   
   try {
-    const dramaData = await tvmaze.getDramaBySlug(slug);
-    const related = (await tvmaze.getTrendingDramas()).filter(d => d.id !== dramaData.id).slice(0, 6);
+    const dramaData = await mdlApi.getDramaBySlug(slug);
+    const recsPayload = await mdlApi.getDramaRecommendations(slug);
+    
+    let related: Drama[] = recsPayload.slice(0, 6).map((rec, idx) => ({
+      id: parseInt(rec.slug, 10) || idx + 9999,
+      slug: rec.slug,
+      title: rec.title,
+      overview: rec.reasons?.[0] || `Recommended for fans of ${dramaData.title}.`,
+      posterPath: rec.image || null,
+      firstAirDate: rec.year ? `${rec.year}-01-01` : '',
+      status: 'Ended',
+      genres: [] as string[],
+      voteAverage: parseFloat(rec.rating) || 0,
+      popularity: (parseFloat(rec.rating) || 0) * 10,
+      inProduction: false,
+      type: 'Scripted',
+    }));
+
+    if (related.length === 0) {
+      related = (await mdlApi.getTrendingDramas()).filter(d => d.slug !== dramaData.slug).slice(0, 6);
+    }
     const streamingLinks = getStreamingLinks(dramaData.title, dramaData.networks?.[0]?.name);
 
     return (

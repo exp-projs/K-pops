@@ -161,3 +161,58 @@ export interface DramaFilters {
   ratingMax?: number;
   sortBy: DramaSortOption;
 }
+
+// --- MyDramaList (MDL) Unofficial API Interfaces ---
+
+export interface MDLSearchResult {
+  title: string;
+  slug: string;
+  year: string;
+  rating: string;
+  image: string;
+  url: string;
+}
+
+export interface MDLTitle {
+  title: string;
+  slug: string;
+  synopsis: string;
+  episodes: number;
+  rating: number;
+  genres: string[];
+  network: string;
+  type: string;
+  language: string;
+  images: {
+    thumb: string;
+    medium: string;
+    poster: string;
+  };
+}
+
+export interface MDLEpisode {
+  episode_number: string;
+  title: string;
+  air_date: string;
+  rating?: string;
+  description?: string;
+  image?: string;
+  season?: string;
+}
+
+export interface MDLCastMember {
+  name: string;
+  role: string;
+  image: string;
+  profile_url: string;
+}
+
+export interface MDLRecommendation {
+  title: string;
+  slug: string;
+  year: string;
+  rating: string;
+  image: string;
+  reasons: string[];
+}
+

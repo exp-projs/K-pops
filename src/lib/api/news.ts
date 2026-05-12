@@ -19,7 +19,7 @@ const parser = new Parser({
 const RSS_SOURCES = [
   { url: 'https://www.soompi.com/feed', name: 'Soompi' },
   { url: 'https://www.koreaboo.com/feed/', name: 'Koreaboo' },
-  { url: 'https://www.allkpop.com/feed', name: 'AllKPop' },
+  // { url: 'https://www.allkpop.com/feed', name: 'AllKPop' }, // Temporarily disabled due to 404
 ];
 
 export const newsApi = {

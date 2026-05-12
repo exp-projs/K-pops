@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ArrowRight, Mail, Lock, User } from 'lucide-react';
-import { SiGithub, SiGoogle } from '@icons-pack/react-simple-icons';
+import { SiGithub, SiGoogle, SiDiscord, SiFacebook } from '@icons-pack/react-simple-icons';
 import { createClient } from '@/utils/supabase/client';
 import styles from './login.module.css';
 
@@ -59,14 +59,28 @@ export default function LoginPage() {
     setLoading(false);
   };
 
-  const handleOAuth = async (provider: 'google' | 'github') => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider,
-      options: {
-        redirectTo: `${location.origin}/auth/callback`,
-      },
-    });
-    if (error) setErrorMsg(error.message);
+  const handleOAuth = async (provider: 'google' | 'github' | 'discord' | 'facebook') => {
+    setLoading(true);
+    setErrorMsg('');
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider,
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+          queryParams: provider === 'google' ? {
+            access_type: 'offline',
+            prompt: 'consent',
+          } : undefined,
+        },
+      });
+      if (error) {
+        setErrorMsg(error.message);
+        setLoading(false);
+      }
+    } catch (err: any) {
+      setErrorMsg('An unexpected error occurred during social login.');
+      setLoading(false);
+    }
   };
 
   return (
@@ -152,13 +166,21 @@ export default function LoginPage() {
           <div className={styles.divider}>or continue with</div>
 
           <div className={styles.socialLogins}>
-            <button type="button" className={styles.socialBtn} onClick={() => handleOAuth('google')}>
+            <button type="button" className={styles.socialBtn} onClick={() => handleOAuth('google')} title="Login with Google">
               <SiGoogle size={20} />
-              Google
+              <span>Google</span>
             </button>
-            <button type="button" className={styles.socialBtn} onClick={() => handleOAuth('github')}>
+            <button type="button" className={styles.socialBtn} onClick={() => handleOAuth('github')} title="Login with GitHub">
               <SiGithub size={20} />
-              GitHub
+              <span>GitHub</span>
+            </button>
+            <button type="button" className={styles.socialBtn} onClick={() => handleOAuth('discord')} title="Login with Discord">
+              <SiDiscord size={20} />
+              <span>Discord</span>
+            </button>
+            <button type="button" className={styles.socialBtn} onClick={() => handleOAuth('facebook')} title="Login with Facebook">
+              <SiFacebook size={20} />
+              <span>Facebook</span>
             </button>
           </div>
 
