@@ -63,7 +63,8 @@ export default function DramaDetailTabs({ drama }: DramaDetailTabsProps) {
                 <h3 className={styles.infoTitle}>Details</h3>
                 <div className={styles.infoRow}><span>Network</span><span>{drama.networks?.[0]?.name || 'Unknown'}</span></div>
                 <div className={styles.infoRow}><span>Status</span><span>{drama.status}</span></div>
-                <div className={styles.infoRow}><span>First Aired</span><span>{formatDate(drama.firstAirDate)}</span></div>
+                <div className={styles.infoRow}><span>First Aired</span><span>{drama.firstAirDate ? formatDate(drama.firstAirDate) : 'N/A'}</span></div>
+
                 <div className={styles.infoRow}><span>Language</span><span>Korean</span></div>
                 <div className={styles.infoRow}><span>Country</span><span>{drama.networks?.[0]?.originCountry || 'South Korea'}</span></div>
               </div>

@@ -177,18 +177,24 @@ export interface MDLTitle {
   title: string;
   slug: string;
   synopsis: string;
-  episodes: number;
-  rating: number;
-  genres: string[];
-  network: string;
-  type: string;
-  language: string;
-  images: {
+  episodes?: string | number;
+  rating?: string | number;
+  genres?: string[];
+  original_network?: string;
+  network?: string;
+  type?: string;
+  language?: string;
+  image?: string;
+  native_title?: string;
+  aired?: string;
+  duration?: string;
+  images?: {
     thumb: string;
     medium: string;
     poster: string;
   };
 }
+
 
 export interface MDLEpisode {
   episode_number: string;

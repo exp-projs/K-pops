@@ -56,21 +56,40 @@ export default async function DramaDetailPage({ params }: DramaPageProps) {
     }
     const streamingLinks = getStreamingLinks(dramaData.title, dramaData.networks?.[0]?.name);
 
+    const posterUrl = dramaData.posterPath?.startsWith('http') 
+      ? dramaData.posterPath 
+      : dramaData.posterPath 
+        ? `https://image.tmdb.org/t/p/w780${dramaData.posterPath}`
+        : null;
+
+    const backdropUrl = dramaData.backdropPath?.startsWith('http')
+      ? dramaData.backdropPath
+      : dramaData.backdropPath
+        ? `https://image.tmdb.org/t/p/original${dramaData.backdropPath}`
+        : posterUrl;
+
     return (
       <div className={styles.page}>
         {/* Hero Banner */}
-        <div className={styles.hero} style={{ backgroundImage: dramaData.backdropPath ? `url(${dramaData.backdropPath})` : 'none', backgroundColor: '#1a0a2e' }}>
+        <div className={styles.hero}>
+          {backdropUrl && (
+            <div 
+              className={styles.heroBg} 
+              style={{ backgroundImage: `url(${backdropUrl})` }} 
+            />
+          )}
           <div className={styles.heroOverlay} />
           <div className={styles.heroContent}>
             <div className={styles.posterWrap}>
-              {dramaData.posterPath ? (
-                <img src={dramaData.posterPath} alt={dramaData.title} className={styles.posterImg} />
+              {posterUrl ? (
+                <img src={posterUrl} alt={dramaData.title} className={styles.posterImg} />
               ) : (
                 <div className={styles.poster} style={{ background: 'linear-gradient(135deg, #2d1b4e, #1a0a2e)' }}>
                   <span className={styles.posterTitle}>{dramaData.title}</span>
                 </div>
               )}
             </div>
+
             <div className={styles.heroInfo}>
               <h1 className={styles.title}>{dramaData.title}</h1>
               {dramaData.koreanTitle && <p className={styles.koreanTitle}>{dramaData.koreanTitle}</p>}

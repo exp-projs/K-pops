@@ -78,12 +78,14 @@ function parseRating(rating: any): number {
  * Mappers: MDL shapes -> HALLYU.WORLD domain objects
  */
 function mapSearchResultToDrama(item: MDLSearchResult): Drama {
+  const poster = item.image || null;
   return {
     id: getIdFromSlug(item.slug),
     slug: item.slug,
     title: item.title,
     overview: '', // Search doesn't return synopsis
-    posterPath: item.image || null,
+    posterPath: poster,
+    backdropPath: poster,
     firstAirDate: item.year ? `${item.year}-01-01` : '',
     status: 'Ended',
     genres: [],
@@ -94,25 +96,42 @@ function mapSearchResultToDrama(item: MDLSearchResult): Drama {
   };
 }
 
+
 function mapTitleToDrama(title: MDLTitle): Drama {
+  const poster = title.image || title.images?.poster || title.images?.medium || title.images?.thumb || null;
+  const numEpisodes = typeof title.episodes === 'string' ? parseInt(title.episodes, 10) : title.episodes;
+  const networkName = title.original_network || title.network;
+
+  // Normalize date: MDL "Sep 17, 2021" is valid for new Date()
+  let airDate = '';
+  if (title.aired) {
+    const d = new Date(title.aired);
+    if (!isNaN(d.getTime())) {
+      airDate = d.toISOString().split('T')[0];
+    }
+  }
+
   return {
     id: getIdFromSlug(title.slug),
     slug: title.slug,
     title: title.title,
-    overview: title.synopsis || '', // Plain text synopsis, clean to render
-    posterPath: title.images?.poster || title.images?.medium || title.images?.thumb || null,
-    firstAirDate: '', // MDLTitle object might not embed release date directly, rely on episodes or downstream
+    koreanTitle: title.native_title,
+    overview: title.synopsis || '', 
+    posterPath: poster,
+    backdropPath: poster, // Use poster as backdrop fallback
+    firstAirDate: airDate,
     status: title.type === 'Drama' ? 'Ended' : 'Ended',
-    numberOfEpisodes: title.episodes || 0,
+    numberOfEpisodes: numEpisodes || 0,
     genres: title.genres || [],
     voteAverage: parseRating(title.rating),
     popularity: parseRating(title.rating) * 10,
-    networks: title.network ? [{ id: 1, name: title.network, logoPath: null, originCountry: 'KR' }] : [],
+    networks: networkName ? [{ id: 1, name: networkName, logoPath: null, originCountry: 'KR' }] : [],
     inProduction: false,
     type: title.type || 'Scripted',
     originalLanguage: title.language || 'Korean',
   };
 }
+
 
 function mapEpisode(ep: MDLEpisode, index: number): Episode {
   const epNum = parseInt(ep.episode_number, 10);
@@ -179,20 +198,25 @@ export const mdlApi = {
       return await this.searchDramas('love');
     }
 
-    return items.map(item => ({
-      id: getIdFromSlug(item.slug),
-      slug: item.slug,
-      title: item.title,
-      overview: '',
-      posterPath: item.image || null,
-      firstAirDate: item.year ? `${item.year}-01-01` : '',
-      status: 'Airing',
-      genres: ['Drama', 'Romance'],
-      voteAverage: parseRating(item.rating),
-      popularity: parseRating(item.rating) * 10,
-      inProduction: true,
-      type: 'Scripted',
-    }));
+    return items.map(item => {
+      const poster = item.image || null;
+      return {
+        id: getIdFromSlug(item.slug),
+        slug: item.slug,
+        title: item.title,
+        overview: '',
+        posterPath: poster,
+        backdropPath: poster,
+        firstAirDate: item.year ? `${item.year}-01-01` : '',
+        status: 'Airing',
+        genres: ['Drama', 'Romance'],
+        voteAverage: parseRating(item.rating),
+        popularity: parseRating(item.rating) * 10,
+        inProduction: true,
+        type: 'Scripted',
+      };
+    });
+
   },
 
   /**
